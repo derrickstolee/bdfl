@@ -20,7 +20,8 @@ How do you win?
 
 Like many things in life, you cannot win this game. You can just eventually be
 overwhelmed by the work required to keep up with the demands of your community
-until you give up.
+until you give up. That, or your version control software gets incredibly slow
+and hard to use (this simulator really starts to have trouble around 15,000 commits).
 
 Are you serious?
 ----------------
