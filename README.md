@@ -1,4 +1,4 @@
-BDFL: A 100% Accurate Depiciton of OSS Maintenance
+BDFL: A 100% Accurate Depiction of OSS Maintenance
 ==================================================
 
 This is a clicker game that simulates creating an open source project

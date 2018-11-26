@@ -32,7 +32,7 @@ function create() {
     var index = 0;
     basePos = [10, 10 + 50 + 200 * index];
 
-    var commitGraph = new CommitGraph(this, 600, window.innerWidth - 600, window.innerHeight);
+    var commitGraph = new CommitGraph(this, 600, window.innerWidth - 700, window.innerHeight);
     var maintainer = new Maintainer(commitGraph);
 
     commitGraph.commitButton = this.add

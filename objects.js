@@ -44,6 +44,7 @@ class CommitGraph {
     AddCommit(commit) {
         this.commitList.push(commit);
         this.commitWindow.push(commit);
+        this.Render(commit);
     }
 
     Draw(commit) {
@@ -97,6 +98,7 @@ class CommitGraph {
 
             x = this.x + this.w / 2 + 2 * commit.position[0] * this.griddim;
             this.rerender();
+            return;
         }
 
         for (var i = 0; i < commit.parents.length; i++ ) {
@@ -171,9 +173,9 @@ class CommitGraph {
             }
 
             this.commitWindow = newWindow;
-        }
 
-        this.rerender();
+            this.rerender();
+        }
     }
 
     reschedule() {
