@@ -37,7 +37,8 @@ class CommitGraph {
         this.timeToRun = null;
         this.cg = null;
         this.offset = 0;
-        this.griddim = 30;
+        this.gridX = 30;
+        this.gridY = 30;
         this.r = 5;
     }
 
@@ -48,26 +49,26 @@ class CommitGraph {
     }
 
     Draw(commit) {
-        if (this.h / this.griddim < commit.position[1] - this.offset) {
+        if (this.h / this.gridY < commit.position[1] - this.offset) {
             return;
         }
 
-        var x = this.x + this.w / 2 + 2 * commit.position[0] * this.griddim;
-        var y = this.h - (commit.position[1] - this.offset) * this.griddim;
+        var x = this.x + this.w / 2 + 2 * commit.position[0] * this.gridX;
+        var y = this.h - (commit.position[1] - this.offset) * this.gridY;
 
         var circle  = new Phaser.Geom.Circle(x, y, this.r);
         this.commitGraphics.fillCircleShape(circle);
     }
 
     Release(tag) {
-        if (this.h / this.griddim < tag.commit.position[1] - this.offset) {
+        if (this.h / this.gridY < tag.commit.position[1] - this.offset) {
             return;
         }
 
-        var x = this.x + this.w / 2 + 2 * tag.commit.position[0] * this.griddim;
-        var y = this.h - (tag.commit.position[1] - this.offset) * this.griddim;
+        var x = this.x + this.w / 2 + 2 * tag.commit.position[0] * this.gridX;
+        var y = this.h - (tag.commit.position[1] - this.offset) * this.gridY;
 
-        var tx = this.x + this.griddim;
+        var tx = this.x + this.gridX;
         var ty = y;
 
         var line = new Phaser.Geom.Line(x,y,tx,ty);
@@ -77,7 +78,7 @@ class CommitGraph {
         } else {
             this.commitGraphics.fillStyle(0xff5555);
         }
-        var sq  = new Phaser.Geom.Rectangle(tx - this.griddim / 3, ty - this.griddim / 2, this.griddim, this.griddim);
+        var sq  = new Phaser.Geom.Rectangle(tx - this.r / 2, ty - this.r / 2, this.r, this.r);
         this.commitGraphics.fillRectShape(sq);
         this.commitGraphics.fillStyle(0xffffff);
 
@@ -85,26 +86,26 @@ class CommitGraph {
     }
 
     Render(commit) {
-        var x = this.x + this.w / 2 + 2 * commit.position[0] * this.griddim;
-        var y = this.h - (commit.position[1] - this.offset) * this.griddim;
+        var x = this.x + this.w / 2 + 2 * commit.position[0] * this.gridX;
+        var y = this.h - (commit.position[1] - this.offset) * this.gridY;
 
-        if (x < this.x + this.griddim || x > this.x + this.w - this.griddim) {
-            this.griddim *= 0.8;
+        if (x < this.x + this.gridX || x > this.x + this.w - this.gridX) {
+            this.gridX *= 0.8;
             this.r *= 0.8;
 
             if (this.r < 3) {
                 this.r = 3;
             }
 
-            x = this.x + this.w / 2 + 2 * commit.position[0] * this.griddim;
+            x = this.x + this.w / 2 + 2 * commit.position[0] * this.gridX;
             this.rerender();
             return;
         }
 
         for (var i = 0; i < commit.parents.length; i++ ) {
             var p = commit.parents[i];
-            var px = this.x + this.w / 2 + 2 * p.position[0] * this.griddim;
-            var py = this.h - (p.position[1] - this.offset) * this.griddim;
+            var px = this.x + this.w / 2 + 2 * p.position[0] * this.gridX;
+            var py = this.h - (p.position[1] - this.offset) * this.gridY;
 
             if (px == x) {
                 var line = new Phaser.Geom.Line(x,y,px,py);
@@ -112,13 +113,14 @@ class CommitGraph {
                 continue;
             }
 
-            var my1 = y + this.griddim / 2;
-            var my2 = py - this.griddim / 2;
-            var mx1 = x - this.griddim / 2;
-            var mx2 = px + this.griddim / 2;
+            var my1 = y + this.gridY / 2;
+            var my2 = py - this.gridY / 2;
+            var mx1 = x - this.gridX / 2;
+            var mx2 = px + this.gridX / 2;
+
             if (px > x) {
-                mx1 = x + this.griddim / 2;
-                mx2 = px - this.griddim / 2;
+                mx1 = x + this.gridX / 2;
+                mx2 = px - this.gridX / 2;
             }
 
             var line1 = new Phaser.Geom.Line(x,y,mx1,my1);
@@ -160,12 +162,12 @@ class CommitGraph {
             }
         }
 
-        if ((maxGen - this.offset) * this.griddim + 100 > this.h) {
-            this.offset += this.h / (2 * this.griddim);
+        if ((maxGen - this.offset) * this.gridY + 100 > this.h) {
+            this.offset += this.h / (2 * this.gridY);
 
             var newWindow = [];
             for (var i = 0; i < this.commitWindow.length; i++) {
-                var newY = this.h - (this.commitWindow[i].position[1] - this.offset) * this.griddim;
+                var newY = this.h - (this.commitWindow[i].position[1] - this.offset) * this.gridY;
 
                 if (newY >= 0) {
                     newWindow.push(this.commitWindow[i]);
