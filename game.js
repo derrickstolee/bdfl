@@ -26,7 +26,7 @@ function preload() {
 }
 
 function create() {
-    state.logText = this.add.text(10, 50, '', { font: '12px Consolas', fill: '#CCC' });
+    state.logText = this.add.text(10, 160, '', { font: '12px Consolas', fill: '#CCC' });
     logMessage("Welcome!");
 
     var index = 0;
@@ -36,17 +36,17 @@ function create() {
     var maintainer = new Maintainer(commitGraph);
 
     commitGraph.commitButton = this.add
-        .text(400, 10, strs.commit,
+        .text(10, 10, strs.commit,
             { fill: '#CCC', fontFamily: 'Consolas', fontSize: 32, stroke: '#CCC', strokeThickness: 2 })
         .setInteractive({ useHandCursor: true })
         .on('pointerdown', function () { maintainer.Commit(); });
     commitGraph.mergeButton = this.add
-        .text(550, 10, strs.merge,
+        .text(10, 60, strs.merge,
             { fill: '#CCC', fontFamily: 'Consolas', fontSize: 32, stroke: '#CCC', strokeThickness: 2 })
         .setInteractive({ useHandCursor: true })
         .on('pointerdown', function () { commitGraph.mergeButton.setTint(0x555555); maintainer.MergeContributor(); });
     commitGraph.releaseButton = this.add
-        .text(700, 10, strs.release,
+        .text(10, 110, strs.release,
             { fill: '#CCC', fontFamily: 'Consolas', fontSize: 32, stroke: '#CCC', strokeThickness: 2 })
         .setInteractive({ useHandCursor: true })
         .on('pointerdown', function () { commitGraph.releaseButton.setTint(0x555555); maintainer.Release(); });
