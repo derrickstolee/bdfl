@@ -368,7 +368,7 @@ class ContributorGenerator {
     }
 
     event() {
-        var c = new Contributor("Contributor" + this.graph.contributors.length, this.graph);
+        var c = new Contributor(getRandomName(), this.graph);
         c.head = this.lieutenant.head;
         logMessage(c.name + " joined the effort at commmit " + c.head.oid);
         c.position[0] = this.getXPos(this.lieutenant.contributors.length);
