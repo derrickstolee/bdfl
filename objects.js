@@ -162,7 +162,7 @@ class CommitGraph {
             }
         }
 
-        if ((maxGen - this.offset) * this.gridY + 100 > this.h) {
+        if ((maxGen - this.offset) * this.gridY + 10 > this.h) {
             this.offset += this.h / (2 * this.gridY);
 
             var newWindow = [];
